@@ -2,7 +2,7 @@
 
 import sys, csv
 
-www = "/home/jacob/www/pianobar/"
+www = "/var/www/pidora/"
 
 event = sys.argv[1]
 lines = sys.stdin.readlines()
@@ -23,3 +23,10 @@ elif event == "songban":
 	open(www + "msg", "w").write("Banned")
 elif event == "songshelf":
 	open(www + "msg", "w").write("Tired")
+elif event == "usergetstations":
+        stationCount = int(fields["stationCount"])
+	stations = ""
+	for i in range(0, stationCount):
+		stations += "%s="%i + fields["station%s"%i] + "|" 
+	stations = stations[0:len(stations) - 1]
+	open(www + "usergetstations.txt", "w").write(stations)

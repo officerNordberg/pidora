@@ -1,3 +1,21 @@
+<?php
+if (!isRunning()) {
+    unlink("curSong");
+    file_put_contents("debug.log", "starting...", FILE_APPEND );
+    shell_exec("./pianobar-daemon.py");
+}
+
+function isRunning(){
+    try{
+        $result = shell_exec("pidof pianobar");
+        if( count(preg_split("/\n/", $result)) > 1){
+            return true;
+        }
+    }catch(Exception $e){}
+
+    return false;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +43,9 @@ $(document).ready(function(){
 	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
 	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
 	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
+	Mousetrap.bind('s', function() { $.get("api.php",{control:"s"}); });
+	Mousetrap.bind('+', function() { $.get("api.php",{control:")"}); });
+	Mousetrap.bind('-', function() { $.get("api.php",{control:"("}); });
 });
 </script>
 </head>
@@ -35,6 +56,9 @@ $(document).ready(function(){
 <a onclick=$.get("api.php",{control:"+"});>Love</a>
 <a onclick=$.get("api.php",{control:"-"});>Ban</a>
 <a onclick=$.get("api.php",{control:"t"});>Tired</a>
+<a onclick=$.get("api.php",{control:"s"});>Change Station</a>
+<a onclick=$.get("api.php",{control:"("});>-</a>
+<a onclick=$.get("api.php",{control:")"});>+</a>
 </div>
 <div id=content>
 </div>

@@ -1,10 +1,16 @@
 <?php
 if (!$_GET) echo getSong();
-if ($_GET['control']) 
+else if ($_GET['control']) 
 {
-	file_put_contents("ctl", "{$_GET['control']}\n");
-
-	if ($_GET['control'] == "n") file_put_contents("msg", "Skipped");
+	$control = $_GET['control'];
+	file_put_contents("debug.log", $_GET['control'], FILE_APPEND );
+	if ($control == "s") {
+		file_put_contents("ctl", $control);
+	} else {
+		file_put_contents("ctl", "$control\n");
+	}
+	if ($control == "n") file_put_contents("msg", "Skipped");
+	if ($control == "s") unlink("curSong");
 }
 
 
@@ -12,11 +18,17 @@ function getSong() {
 	$return = "";
 	if (!file_exists("curSong")) 
 	{
-		$return = "
-	<img src=imgs/pandora.png class=albumart alt=\"Pandora logo\" />
-	<h1>Hello There</h1>
-	<h2>Pianobar is starting up...</h2>";
-		die($return);
+		$stations = file_get_contents("usergetstations.txt");
+		$list = explode("|", $stations);
+		$return .= "<p>";
+       		foreach($list as $station){
+			$stationArray = explode("=", $station);
+			$id = $stationArray[0];
+			$name = $stationArray[1];
+			$return .= "<a onclick=$.get(\"api.php\",{control:\"$id\"});>$name</a><br/>";
+       		}
+		$return .= "</p>";
+		return $return;
 	}
 
 	if (file_exists("msg"))
