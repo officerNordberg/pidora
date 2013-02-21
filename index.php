@@ -1,10 +1,4 @@
 <?php
-if (!isRunning()) {
-    unlink("curSong");
-    file_put_contents("debug.log", "starting...", FILE_APPEND );
-    shell_exec("./pianobar-daemon.py");
-}
-
 function isRunning(){
     try{
         $result = shell_exec("pidof pianobar");

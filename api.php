@@ -3,7 +3,6 @@ if (!$_GET) echo getSong();
 else if ($_GET['control']) 
 {
 	$control = $_GET['control'];
-	file_put_contents("debug.log", $_GET['control'], FILE_APPEND );
 	if ($control == "s") {
 		file_put_contents("ctl", $control);
 	} else {
@@ -11,6 +10,7 @@ else if ($_GET['control'])
 	}
 	if ($control == "n") file_put_contents("msg", "Skipped");
 	if ($control == "s") unlink("curSong");
+	#if (is_numeric($control)) unlink("stations");
 }
 
 
@@ -18,7 +18,7 @@ function getSong() {
 	$return = "";
 	if (!file_exists("curSong")) 
 	{
-		$stations = file_get_contents("usergetstations.txt");
+		$stations = file_get_contents("stations");
 		$list = explode("|", $stations);
 		$return .= "<p>";
        		foreach($list as $station){

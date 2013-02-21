@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, csv
+import sys, csv, os
 
 www = "/var/www/pidora/"
 
@@ -23,10 +23,12 @@ elif event == "songban":
 	open(www + "msg", "w").write("Banned")
 elif event == "songshelf":
 	open(www + "msg", "w").write("Tired")
+elif event == "userlogin":
+	os.remove(www + "curSong")
 elif event == "usergetstations":
         stationCount = int(fields["stationCount"])
 	stations = ""
 	for i in range(0, stationCount):
 		stations += "%s="%i + fields["station%s"%i] + "|" 
 	stations = stations[0:len(stations) - 1]
-	open(www + "usergetstations.txt", "w").write(stations)
+	open(www + "stations", "w").write(stations)
