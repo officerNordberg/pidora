@@ -1,5 +1,6 @@
-artwork/*.*
+albumart/*.*
 ctl
 curSong
 msg
+stationList
 pianobar.csv

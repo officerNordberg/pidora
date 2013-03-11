@@ -5,11 +5,12 @@ Pidora
 
 1.	Install pianobar, apache2, and libapache2-mod-php5 and their dependencies
 2.	Configure Apache2 and PHP the way you like. I followed this [guide](https://help.ubuntu.com/community/ApacheMySQLPHP#Installing_Apache_2) and moved my `www` folder to the home directory.
-3.	Configure pianobar until you are able to run <tt>pianobar</tt> from the command line without any interaction. The man file is particularly helpful. If you get a "TLS Handshake failed" error, run [this command](https://gist.github.com/4200610). It will append the correct TLS fingerprint to your config file.
-4.	Create a FIFO file by running `mkfifo ctl` in your pidora directory. Make this writable by the server.
-5.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the Python script.
-6.	Edit the directory location in the python script to point to the root of pidora.
-7.	Run pianobar and open Midori to the location of pidora. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
+3.	Create an `albumart` directory in the pidora server directory and make sure it's writeable by the server.
+4.	Configure pianobar until you are able to run <tt>pianobar</tt> from the command line without any interaction. The man file is particularly helpful. If you get a "TLS Handshake failed" error, run [this command](https://gist.github.com/4200610). It will append the correct TLS fingerprint to your config file.
+5.	Create a FIFO file by running `mkfifo ctl` in your pidora directory. Make this writable by the server.
+6.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the Python script.
+7.	Edit the directory location in the python script to point to the root of pidora.
+8.	Run pianobar and open Midori to the location of pidora. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
 
 That's it for the installation. Now let's configure our machine to automatically launch the web browser and pianobar.
 
@@ -20,7 +21,7 @@ That's it for the installation. Now let's configure our machine to automatically
 4.	Finally, remove all the icons on the desktop and set the statusbar to hide automatically. This isn't necessary but it gives less an impression that this is a computer.
 
 
-Notes
-=====
+Contact me
+==========
 
-You may be wondering why I wanted this to be graphical. Well, I didn't. The idea was that there would be a small speakers plugged into the 3.5mm jack and that would be that. But because of the analog popping bug in ALSA, it became annoying. So it had to be plugged into HDMI (I'll change this if I ever buy a USB audio dongle; I hear the bug's not present there). Which led me to need something to display while it was running. And this was my solution.
+You can shoot me an email or submit an issue at [GitHub](https://github.com/jacroe/pidora/issues/new) if you have a question or a suggestion. I welcome them with open arms.
