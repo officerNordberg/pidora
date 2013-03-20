@@ -1,35 +1,13 @@
 <?php
-if (!$_GET) echo getSong();
-else if ($_GET['control']) 
+if (isset($_GET['control'])) 
 {
 	$control = $_GET['control'];
-	if ($control == "s") {
-		file_put_contents("ctl", $control);
-	} else {
-		file_put_contents("ctl", "$control\n");
-	}
+	file_put_contents("ctl", $control);
 	if ($control == "n") file_put_contents("msg", "Skipped");
-	if ($control == "s") unlink("curSong");
-	#if (is_numeric($control)) unlink("stations");
-}
-
+} 
 
 function getSong() {
 	$return = "";
-	if (!file_exists("curSong")) 
-	{
-		$stations = file_get_contents("stations");
-		$list = explode("|", $stations);
-		$return .= "<p>";
-       		foreach($list as $station){
-			$stationArray = explode("=", $station);
-			$id = $stationArray[0];
-			$name = $stationArray[1];
-			$return .= "<a onclick=$.get(\"api.php\",{control:\"$id\"});>$name</a><br/>";
-       		}
-		$return .= "</p>";
-		return $return;
-	}
 
 	if (file_exists("msg"))
 	{
@@ -39,21 +17,7 @@ function getSong() {
 	
 	}
 
-	$songInfo = file_get_contents("curSong");
-	$arraySong = explode("|", $songInfo);
-	$title = $arraySong[0];
-	$artist = $arraySong[1];
-	$album = $arraySong[2];
-	$coverart = $arraySong[3];
-	if (!$coverart) $coverart = "imgs/pandora.png";
-	$love = $arraySong[4];
-	
-	if ($love==1) $return .= "<img src=imgs/love.png class=love width=20 />";
-	$return .= "
-	<img src=$coverart class=albumart alt=\"Artwork for $album\" />
-	<h1>$title</h1>
-	<h2>$artist</h2>
-	<h2 class=album>$album</h2>";
-	return $return;
+//	if ($love==1) $return .= "<img src=imgs/love.png class=love width=20 />";
+//	<h2 class=album>$album</h2>";
 }
 ?>

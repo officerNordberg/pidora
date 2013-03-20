@@ -1,0 +1,106 @@
+<?php?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="my.css" />
+        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+		<script src="mousetrap.js"></script>
+        <script src="my.js">
+        </script>
+        <!-- User-generated css -->
+        <style>
+        </style>
+        <!-- User-generated js -->
+        <script>
+            try {
+
+$(document).ready(function(){
+	$.getJSON("stations.php", function(stations) {
+		$.each(stations, function(key, value) {
+			$('#station').append($("<option></option>")
+			.attr("value",key)
+			.text(value));
+	   	});
+	});
+	$('#station').on('change', function() {
+  		$.get("api.php",{control:"s" + this.value}); // or $(this).val()
+	});
+	oldData = "";
+	window.setInterval(function(){
+	   $.getJSON("song.php", function(newData)
+	   {
+	      if (!(oldData.coverart === newData.coverart))
+	      {
+		  	oldData = newData;         
+		  	$('#coverArt').fadeOut('slow', function(){$(this).attr("src", newData.coverart).fadeIn('slow')});
+		  	$('#title').html(newData.title);
+		  	$('#album').html(newData.album);
+		  	$('#artist').html(newData.artist);
+	      }
+	   });
+	}, 3000);
+	
+	
+	Mousetrap.bind(['p', 'space'], function() { $.get("api.php",{control:"p"}); });
+	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
+	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
+	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
+	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
+	Mousetrap.bind('+', function() { $.get("api.php",{control:")"}); });
+	Mousetrap.bind('-', function() { $.get("api.php",{control:"("}); });
+});
+
+
+  } catch (error) {
+    console.error("Your javascript has an error: " + error);
+  }
+        </script>
+    </head>
+    <body>
+        <!-- Home -->
+        <div data-role="page" id="page1">
+            <div data-role="content">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div style=" text-align:center">
+                            <img id="coverArt" style="width: 100%; height: 100%" src="imgs/pandora.png" />
+                        </div>                        
+                    </div>
+                    <div class="ui-block-b">
+						<h1 style="font-size:75%" id="title"></h1>
+						<h2 style="font-size:75%" id="artist"></h2>
+						<h2 style="font-size:75%" id="album"></h2>
+						<h3 style="font-size:75%" id="msg" class="msg"></h3>
+                    </div>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="selectmenu1">
+                        Stations:
+                    </label>
+                    <select name="" data-theme="a" data-mini="true" id="station">
+                    	<option value="" selected></option>
+                    </select>
+                </div>
+                <input type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" onclick=$.get("api.php",{control:"p"}); />
+                <input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="top" value="Skip" data-mini="true"  onclick=$.get("api.php",{control:"n"}); />
+                <input type="button" data-inline="true" data-icon="arrow-d" data-iconpos="top" value="Vol" data-mini="true"  onclick=$.get("api.php",{control:"("}); />
+                <input type="button" data-inline="true" data-icon="arrow-u" data-iconpos="top" value="Vol" data-mini="true"  onclick=$.get("api.php",{control:")"}); />
+                <input type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" onclick=$.get("api.php",{control:"+"}); />
+                <input type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" onclick=$.get("api.php",{control:"-"}); />
+                <input type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" onclick=$.get("api.php",{control:"t"}); />
+                <input type="button" data-inline="true" data-icon="info" data-iconpos="top" value="Explain" data-mini="true" onclick=$.get("api.php",{control:"e"}); />
+            </div>
+        </div>
+    </body>
+</html>
+<!--<a onclick=$.get("api.php",{control:"s"});>Change Station</a>-->
