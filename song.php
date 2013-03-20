@@ -6,9 +6,8 @@
 	artist => $arraySong[1],
 	album => $arraySong[2],
 	coverart => $arraySong[3],
-//	if (!$coverart) $coverart = "imgs/pandora.png";
-	love => $arraySong[4]);
-	
+	love => $arraySong[4],
+	details => $arraySong[5]);
 	echo json_encode($song);
 	die();
 ?>

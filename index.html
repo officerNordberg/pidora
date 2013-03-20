@@ -9,16 +9,12 @@
         <title>
         </title>
         <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="styles.css" />
         <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
         </script>
         <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
         </script>
-	<script src="mousetrap.js"></script>
-        </script>
-        <!-- User-generated css -->
-        <style>
-        </style>
-        <!-- User-generated js -->
+		<script src="mousetrap.js"></script>
         <script>
             try {
 
@@ -101,4 +97,20 @@ $(document).ready(function(){
         </div>
     </body>
 </html>
-<!--<a onclick=$.get("api.php",{control:"s"});>Change Station</a>-->
+<!--
+	$data = file_get_contents($url);
+	#preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches); // uncomment this if explanations act funny
+	preg_match("#features of this track(.*?)\</div\>#is", $data, $matches);
+	$strip = array("Features of This Track</h2>", "<div style=\"display: none;\">", "</div>", "<p>These are just a");
+	if (!$matches[0]) return "We were unable to get the song's explanation. Sorry about that.";
+	$data = explode("<br>", str_replace($strip, "", $matches[0]));
+	unset($data[count($data)-1]);
+	if (trim($data[count($data)-1]) == "many other comedic similarities")
+	{
+		$ending = "many other comedic similarities";
+		unset($data[count($data)-1]);
+	}
+	else $ending = "many other similarites as identified by the Music Genome Project";
+	$data = implode(", ", array_map('trim', $data));
+	return "We're playing this track because it features $data, and $ending.";
+-->
