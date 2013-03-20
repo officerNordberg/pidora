@@ -2,7 +2,7 @@
 if (isset($_GET['control'])) 
 {
 	$control = $_GET['control'];
-	file_put_contents("ctl", $control);
+	file_put_contents("ctl", "$control\n");
 	if ($control == "n") file_put_contents("msg", "Skipped");
 } 
 
