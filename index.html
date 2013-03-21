@@ -27,7 +27,7 @@ $(document).ready(function(){
 	   	});
 	});
 	$('#station').on('change', function() {
-  		$.get("api.php",{control:"s" + this.value}); // or $(this).val()
+  		$.get("api.php",{control: this.value}); // or $(this).val()
 	});
 	oldData = "";
 	window.setInterval(function(){

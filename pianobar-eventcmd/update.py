@@ -33,4 +33,3 @@ elif event == "usergetstations":
 		stations += "%s="%i + fields["station%s"%i] + "|" 
 	stations = stations[0:len(stations) - 1]
 	open(www + "stations", "w").write(stations)
-	open(www + "stationList", "w").write(stations)
