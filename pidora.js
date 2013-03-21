@@ -30,7 +30,7 @@ var songRefresh = function () {
 	   $.getJSON("song.php", function(newSong) {
 	      if (newSong.title !== "" && currentSong.coverart !== newSong.coverart) {
 		  	currentSong = newSong;         
-		  	$('#coverArt').fadeOut('slow', function(){$(this).attr("src", newSong.coverart).fadeIn('slow')});
+		  	$('#coverArt').fadeOut('slow', function(){$(this).attr("src", newSong.coverart).fadeIn('slow');});
 		  	$('#title').html(newSong.title);
 		  	$('#album').html(newSong.album);
 		  	$('#artist').html(newSong.artist);
