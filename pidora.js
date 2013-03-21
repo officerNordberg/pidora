@@ -1,5 +1,9 @@
 var PIDORA = (function ($, PIDORA) {
 
+var control = function (command) {
+	$.post("api.php", {control: command});
+};
+
 var initializeStationSelect = function () {
 	$.getJSON("stations.php", function(stations) {
 		$.each(stations, function(key, value) {
@@ -15,7 +19,7 @@ var initializeStationSelect = function () {
         	});
 	});
 	$('#station').on('change', function() {
-  		$.post("api.php",{control: this.value}); // or $(this).val()
+  		control(this.value); // or $(this).val()
 	});
 };
 
@@ -36,18 +40,13 @@ var songRefresh = function () {
 };
 
 var initializeKeyBindings = function () { 
-	Mousetrap.bind(['p', 'space'], function() { $.get("api.php",{control:"p"}); });
-	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
-	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
-	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
-	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
-	Mousetrap.bind('+', function() { $.get("api.php",{control:")"}); });
-	Mousetrap.bind('-', function() { $.get("api.php",{control:"("}); });
-};
-
-
-var control = function (command) {
-	$.post("api.php", {control: command});
+	Mousetrap.bind(['p', 'space'], function() { control("p"); });
+	Mousetrap.bind('n', function() { control("n"); });
+	Mousetrap.bind('l', function() { control("+"); });
+	Mousetrap.bind('b', function() { control("-"); });
+	Mousetrap.bind('t', function() { control("t"); });
+	Mousetrap.bind('+', function() { control(")"); });
+	Mousetrap.bind('-', function() { control("("); });
 };
 
 var initializeControls = function () {
@@ -64,7 +63,6 @@ var initialize = function () {
 };
 
 PIDORA.initialize = initialize;
-PIDORA.control = control;
 PIDORA.currentSong = currentSong;
 
 return PIDORA;
