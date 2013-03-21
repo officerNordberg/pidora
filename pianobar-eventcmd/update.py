@@ -26,6 +26,7 @@ elif event == "songshelf":
 	open(www + "msg", "w").write("Tired")
 elif event == "userlogin":
 	os.remove(www + "curSong")
+	os.remove(www + "station")
 elif event == "usergetstations":
         stationCount = int(fields["stationCount"])
 	stations = ""

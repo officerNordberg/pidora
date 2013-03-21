@@ -25,16 +25,21 @@ $(document).ready(function(){
 			.attr("value",key)
 			.text(value));
 	   	});
+	        $.getJSON("station.php", function(response) {
+			if (response.station) {
+        	        	$('#station').val(response.station);
+				$('#station').selectmenu("refresh");
+			}
+        	});
 	});
+
 	$('#station').on('change', function() {
   		$.get("api.php",{control: this.value}); // or $(this).val()
 	});
 	oldData = "";
 	window.setInterval(function(){
-	   $.getJSON("song.php", function(newData)
-	   {
-	      if (!(oldData.coverart === newData.coverart))
-	      {
+	   $.getJSON("song.php", function(newData) {
+	      if (newData.title !== "" && oldData.coverart !== newData.coverart) {
 		  	oldData = newData;         
 		  	$('#coverArt').fadeOut('slow', function(){$(this).attr("src", newData.coverart).fadeIn('slow')});
 		  	$('#title').html(newData.title);
@@ -82,7 +87,7 @@ $(document).ready(function(){
                         Stations:
                     </label>
                     <select name="" data-theme="a" data-mini="true" id="station">
-                    	<option value="" selected></option>
+			<option data-placeholder="true">Select a Station...</option>
                     </select>
                 </div>
                 <input type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" onclick=$.get("api.php",{control:"p"}); />
