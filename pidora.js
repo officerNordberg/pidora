@@ -55,11 +55,20 @@ var initializeControls = function () {
 	});
 };
 
+var initializeDetails = function () {
+	$('#explanation-collapsible').bind("expand", function () {
+		$.get('details.php', function (data) {
+			$('#explanation').html(data);
+		});
+	});
+};
+
 var initialize = function () {
 	initializeStationSelect();
 	songRefresh();
 	initializeKeyBindings();
 	initializeControls();
+	initializeDetails();
 };
 
 PIDORA.initialize = initialize;

@@ -36,11 +36,12 @@
                             <img id="coverArt" style="width: 100%; height: 100%" src="imgs/pandora.png" />
                         </div>                        
                     </div>
-                    <div class="ui-block-b">
-						<h1 style="font-size:75%" id="title"></h1>
-						<h2 style="font-size:75%" id="artist"></h2>
-						<h2 style="font-size:75%" id="album"></h2>
-						<h3 style="font-size:75%" id="msg" class="msg"></h3>
+                    <div class="ui-block-b" >
+						<img id="loved" src="imgs/love.png" width="20" style="display: none" />
+						<h3 id="title"></h3>
+						<h4 id="artist"></h4>
+						<h4 id="album"></h4>
+						<h5 id="msg" class="msg"></h5>
                     </div>
                 </div>
                 <div data-role="fieldcontain">
@@ -58,12 +59,11 @@
                 <input class="control" type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" pi-cmd="+" />
                 <input class="control" type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" pi-cmd="-" />
                 <input class="control" type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" pi-cmd="t" />
-		<a rel="external" target="_blank" id="explanation" data-role="button" data-inline="true" data-icon="info" data-iconpos="top" data-mini="true" href="#" >Explain</a>
-<!--<div id="explanation-collapsible" data-role="collapsible" data-theme="a" data-mini="true" data-content-theme="a" data-collapsed-icon="info" data-expanded-icon="info" >
+<div id="explanation-collapsible" data-role="collapsible" data-theme="a" data-mini="true" data-content-theme="a" data-collapsed-icon="info" data-expanded-icon="back" >
    <h3>Explain</h3>
-   <div id="explanation">I'm the collapsible content with a themed content block set to "a".</div>
+   <div id="explanation"></div>
 </div>
-            </div>-->
+            </div>
         </div>
     </body>
-</html>
+/html>
