@@ -6,64 +6,25 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <title>
-        </title>
-        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-        <link rel="stylesheet" href="styles.css" />
-        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        <title>Pidora</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
         </script>
-        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js">
         </script>
-		<script src="mousetrap.js"></script>
+	<script src="mousetrap.js"></script>
+	<script src="pidora.js"></script>
         <script>
-            try {
-
-$(document).ready(function(){
-	$.getJSON("stations.php", function(stations) {
-		$.each(stations, function(key, value) {
-			$('#station').append($("<option></option>")
-			.attr("value",key)
-			.text(value));
-	   	});
-	        $.getJSON("station.php", function(response) {
-			if (response.station) {
-        	        	$('#station').val(response.station);
-				$('#station').selectmenu("refresh");
-			}
-        	});
-	});
-
-	$('#station').on('change', function() {
-  		$.get("api.php",{control: this.value}); // or $(this).val()
-	});
-	oldData = "";
-	window.setInterval(function(){
-	   $.getJSON("song.php", function(newData) {
-	      if (newData.title !== "" && oldData.coverart !== newData.coverart) {
-		  	oldData = newData;         
-		  	$('#coverArt').fadeOut('slow', function(){$(this).attr("src", newData.coverart).fadeIn('slow')});
-		  	$('#title').html(newData.title);
-		  	$('#album').html(newData.album);
-		  	$('#artist').html(newData.artist);
-	      }
-	   });
-	}, 3000);
-	
-	
-	Mousetrap.bind(['p', 'space'], function() { $.get("api.php",{control:"p"}); });
-	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
-	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
-	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
-	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
-	Mousetrap.bind('+', function() { $.get("api.php",{control:")"}); });
-	Mousetrap.bind('-', function() { $.get("api.php",{control:"("}); });
-});
-
-
-  } catch (error) {
-    console.error("Your javascript has an error: " + error);
-  }
-        </script>
+	(function ($, PIDORA) {
+	   $(document).ready(function(){
+		try {
+			PIDORA.initialize();
+  		} catch (error) {
+    			console.error("Your javascript has an error: " + error);
+  		}
+   	   });
+	}($, PIDORA));
+   	</script>
     </head>
     <body>
         <!-- Home -->
@@ -90,32 +51,19 @@ $(document).ready(function(){
 			<option data-placeholder="true">Select a Station...</option>
                     </select>
                 </div>
-                <input type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" onclick=$.get("api.php",{control:"p"}); />
-                <input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="top" value="Skip" data-mini="true"  onclick=$.get("api.php",{control:"n"}); />
-                <input type="button" data-inline="true" data-icon="arrow-d" data-iconpos="top" value="Vol" data-mini="true"  onclick=$.get("api.php",{control:"("}); />
-                <input type="button" data-inline="true" data-icon="arrow-u" data-iconpos="top" value="Vol" data-mini="true"  onclick=$.get("api.php",{control:")"}); />
-                <input type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" onclick=$.get("api.php",{control:"+"}); />
-                <input type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" onclick=$.get("api.php",{control:"-"}); />
-                <input type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" onclick=$.get("api.php",{control:"t"}); />
-                <input type="button" data-inline="true" data-icon="info" data-iconpos="top" value="Explain" data-mini="true" onclick=$.get("api.php",{control:"e"}); />
-            </div>
+                <input class="control" type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" pi-cmd="p" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-r" data-iconpos="top" value="Skip" data-mini="true" pi-cmd="n" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-d" data-iconpos="top" value="Vol" data-mini="true" pi-cmd="(" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-u" data-iconpos="top" value="Vol" data-mini="true" pi-cmd=")" />
+                <input class="control" type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" pi-cmd="+" />
+                <input class="control" type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" pi-cmd="-" />
+                <input class="control" type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" pi-cmd="t" />
+		<a rel="external" target="_blank" id="explanation" data-role="button" data-inline="true" data-icon="info" data-iconpos="top" data-mini="true" href="#" >Explain</a>
+<!--<div id="explanation-collapsible" data-role="collapsible" data-theme="a" data-mini="true" data-content-theme="a" data-collapsed-icon="info" data-expanded-icon="info" >
+   <h3>Explain</h3>
+   <div id="explanation">I'm the collapsible content with a themed content block set to "a".</div>
+</div>
+            </div>-->
         </div>
     </body>
 </html>
-<!--
-	$data = file_get_contents($url);
-	#preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches); // uncomment this if explanations act funny
-	preg_match("#features of this track(.*?)\</div\>#is", $data, $matches);
-	$strip = array("Features of This Track</h2>", "<div style=\"display: none;\">", "</div>", "<p>These are just a");
-	if (!$matches[0]) return "We were unable to get the song's explanation. Sorry about that.";
-	$data = explode("<br>", str_replace($strip, "", $matches[0]));
-	unset($data[count($data)-1]);
-	if (trim($data[count($data)-1]) == "many other comedic similarities")
-	{
-		$ending = "many other comedic similarities";
-		unset($data[count($data)-1]);
-	}
-	else $ending = "many other similarites as identified by the Music Genome Project";
-	$data = implode(", ", array_map('trim', $data));
-	return "We're playing this track because it features $data, and $ending.";
--->

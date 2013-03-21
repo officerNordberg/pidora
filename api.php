@@ -1,7 +1,7 @@
 <?php
-if (isset($_GET['control'])) 
+if (isset($_POST['control'])) 
 {
-	$control = $_GET['control'];
+	$control = $_POST['control'];
 	if (is_numeric($control)) {
 		file_put_contents("station", $control);
 		$control = (file_exists("curSong")) ? "s$control\n" : "$control\n";
