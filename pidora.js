@@ -1,4 +1,4 @@
-var PIDORA = (function ($, PIDORA) {
+var PIDORA = (function ($, Mousetrap, PIDORA) {
 
 var control = function (command) {
 	$.post("api.php", {control: command});
@@ -34,6 +34,21 @@ var songRefresh = function () {
 		  	$('#title').html(newSong.title);
 		  	$('#album').html(newSong.album);
 		  	$('#artist').html(newSong.artist);
+		  	if (newSong.love === "1") {
+		  		$('#loved').fadeIn('slow');
+		  	} else {
+		  		$('#loved').hide();
+		  	}
+	      }
+	   });
+	}, 3000);
+};
+
+var checkMessages = function () {
+	window.setInterval(function(){
+	   $.getJSON("message.php", function(response) {
+	      if (response.message !== "") {
+		  	$('#msg').fadeIn('slow', function(){$(this).html(response.message).fadeOut(5000);});
 	      }
 	   });
 	}, 3000);
@@ -50,8 +65,8 @@ var initializeKeyBindings = function () {
 };
 
 var initializeControls = function () {
-	$('input[pi-cmd]').on("click", function(event) {
-		control($(this).attr("pi-cmd"));
+	$('input[data-pi-cmd]').on("click", function(event) {
+		control($(this).attr("data-pi-cmd"));
 	});
 };
 
@@ -69,6 +84,7 @@ var initialize = function () {
 	initializeKeyBindings();
 	initializeControls();
 	initializeDetails();
+	checkMessages();
 };
 
 PIDORA.initialize = initialize;
@@ -76,4 +92,4 @@ PIDORA.currentSong = currentSong;
 
 return PIDORA;
 
-}(jQuery, PIDORA || {}));
+}(jQuery, Mousetrap, PIDORA || {}));

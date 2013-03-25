@@ -8,11 +8,12 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <title>Pidora</title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+        <link rel="stylesheet" href="styles.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
         </script>
         <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js">
         </script>
-	<script src="mousetrap.js"></script>
+	<script src="http://cdn.craig.is/js/mousetrap/mousetrap.min.js?88c23"></script>
 	<script src="pidora.js"></script>
         <script>
 	(function ($, PIDORA) {
@@ -32,33 +33,29 @@
             <div data-role="content">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div style=" text-align:center">
-                            <img id="coverArt" style="width: 100%; height: 100%" src="imgs/pandora.png" />
+                        <div class="cover-art">
+                            <img id="coverArt" src="imgs/pandora.png"/>
                         </div>                        
                     </div>
                     <div class="ui-block-b" >
-						<img id="loved" src="imgs/love.png" width="20" style="display: none" />
-						<h3 id="title"></h3>
+						<div class="song-title"><h3 id="title"></h3><img id="loved" src="imgs/love.png" style="display: none" /></div>
 						<h4 id="artist"></h4>
 						<h4 id="album"></h4>
-						<h5 id="msg" class="msg"></h5>
+						<h5 id="msg"></h5>
                     </div>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="selectmenu1">
-                        Stations:
-                    </label>
                     <select name="" data-theme="a" data-mini="true" id="station">
 			<option data-placeholder="true">Select a Station...</option>
                     </select>
                 </div>
-                <input class="control" type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" pi-cmd="p" />
-                <input class="control" type="button" data-inline="true" data-icon="arrow-r" data-iconpos="top" value="Skip" data-mini="true" pi-cmd="n" />
-                <input class="control" type="button" data-inline="true" data-icon="arrow-d" data-iconpos="top" value="Vol" data-mini="true" pi-cmd="(" />
-                <input class="control" type="button" data-inline="true" data-icon="arrow-u" data-iconpos="top" value="Vol" data-mini="true" pi-cmd=")" />
-                <input class="control" type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" pi-cmd="+" />
-                <input class="control" type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" pi-cmd="-" />
-                <input class="control" type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" pi-cmd="t" />
+                <input class="control" type="button" data-inline="true" data-icon="refresh" data-iconpos="top" value="Play/Pause" data-mini="true" data-pi-cmd="p" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-r" data-iconpos="top" value="Skip" data-mini="true" data-pi-cmd="n" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-d" data-iconpos="top" value="Vol" data-mini="true" data-pi-cmd="(" />
+                <input class="control" type="button" data-inline="true" data-icon="arrow-u" data-iconpos="top" value="Vol" data-mini="true" data-pi-cmd=")" />
+                <input class="control" type="button" data-inline="true" data-icon="star" data-iconpos="top" value="Love" data-mini="true" data-pi-cmd="+" />
+                <input class="control" type="button" data-inline="true" data-icon="minus" data-iconpos="top" value="Tired" data-mini="true" data-pi-cmd="-" />
+                <input class="control" type="button" data-inline="true" data-icon="delete" data-iconpos="top" value="Ban" data-mini="true" data-pi-cmd="t" />
 <div id="explanation-collapsible" data-role="collapsible" data-theme="a" data-mini="true" data-content-theme="a" data-collapsed-icon="info" data-expanded-icon="back" >
    <h3>Explain</h3>
    <div id="explanation"></div>

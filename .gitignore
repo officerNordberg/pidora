@@ -2,5 +2,7 @@ albumart/*.*
 ctl
 curSong
 msg
-stationList
+station*
 pianobar.csv
+err
+log
