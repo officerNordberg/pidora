@@ -34,12 +34,12 @@ var songRefresh = function () {
 		  	$('#title').html(newSong.title);
 		  	$('#album').html(newSong.album);
 		  	$('#artist').html(newSong.artist);
-		  	if (newSong.love === "1") {
-		  		$('#loved').fadeIn('slow');
-		  	} else {
-		  		$('#loved').hide();
-		  	}
-	      }
+	      } 
+	      if (newSong.love === "1" && !$('#loved').is(':visible')) {
+		  	$('#loved').fadeIn('slow');
+		  } else if (newSong.love !== "1" && $('#loved').is(':visible')) {
+		  	$('#loved').hide();
+		  }
 	   });
 	}, 3000);
 };
